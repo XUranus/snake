@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/snake.dir/main.cpp.o CMakeFiles/snake.dir/cpp/snake.cpp.o CMakeFiles/snake.dir/cpp/body_node.cpp.o CMakeFiles/snake.dir/cpp/server.cpp.o CMakeFiles/snake.dir/cpp/zone.cpp.o CMakeFiles/snake.dir/cpp/timer.cpp.o CMakeFiles/snake.dir/cpp/food.cpp.o CMakeFiles/snake.dir/header/gameMessage.pb.cc.o  -o snake -lpthread -lcurses -lprotobuf 
