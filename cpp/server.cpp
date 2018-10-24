@@ -95,6 +95,7 @@ bool server::start() { //start the server
     printf("------------slot and frame start to count----------------\n\n");
 
 
+
     while(active) {
         if(!_timer.count_down()) fetch_data();
         else send_sync_data();

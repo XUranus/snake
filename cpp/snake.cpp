@@ -144,7 +144,7 @@ void snake::set_direct(std::string s) {
     else if(s=="LEFT") t_direct = LEFT;
     else if(s=="RIGHT") t_direct = RIGHT;
     else t_direct = UNKNOWN;
-    if(t_direct+direct!=0) direct = t_direct;//prevent sudden die
+    if(t_direct+direct!=0 && t_direct!=0) direct = t_direct;//prevent sudden die
 }
 
 void snake::debug() {
