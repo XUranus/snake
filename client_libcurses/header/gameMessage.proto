@@ -1,0 +1,35 @@
+syntax="proto2";
+package GameProto;
+
+ 
+message Point { // cordinate
+    required int32 x = 1;
+    required int32 y = 2;
+}
+ 
+message Food {
+    required int32 x = 1;
+    required int32 y = 2;
+}
+ 
+message Snake {
+    required int32 color = 1;
+    repeated Point node = 2;
+}
+ 
+message BattleField { 
+    repeated Snake snake = 1;
+    repeated Food food = 2;
+}
+ 
+message ServerMessage { // server send this
+    enum ActionType {
+        SyncMap = 0;
+        LossGame = 1;
+        WinGame = 2;
+    }
+
+    required ActionType action = 1;
+    optional BattleField battle_field = 2;
+    optional string msg = 3;
+}
