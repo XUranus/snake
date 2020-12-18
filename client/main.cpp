@@ -8,6 +8,7 @@
 #include<sys/time.h>
 #include<sys/select.h>
 #include <pthread.h>
+#include <getopt.h>
 #include <chrono>
 #include "header/zone.h"
 #include "header/logger.h"
@@ -22,8 +23,10 @@ static bool flag = true;
 pthread_t net_th;
 net_service* service;
 
-const int ROW = 30;
-const int COL = 50;
+int ROW = 30;
+int COL = 50;
+int port = 0;
+char* host = nullptr;
 
 void init_ui()
 {
@@ -71,15 +74,53 @@ static void *net_thread(void*) {
     return nullptr;
 }
 
-int main() {
+void print_help() {
+    cout << "usage: snake_client -H <host> -p <port> -c <colns> -r <rowns>" << endl;
+}
+
+int main(int argc, char *argv[]) {
+    int opt;
+    const char *str = "hH:p:c:r:";
+    while ((opt = getopt(argc, argv, str)) != -1) {
+        switch (opt) {
+            case 'p': {
+                port = atoi(optarg);
+                break;
+            }
+            case 'H': {
+                host = optarg;
+                break;
+            }
+            case 'c': {
+                COL = atoi(optarg);
+                break;
+            }
+            case 'r': {
+                ROW = atoi(optarg);
+                break;
+            }
+            case 'h': {
+                print_help();
+                exit(0);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    if(port <= 0 || ROW <= 0 || COL <= 0) {
+        cout << "illegal args." << endl;
+        exit(1);
+    }
+
+
     init_ui();
 
     zone _zone(ROW,COL);
 
-    service = new net_service("127.0.1.1",8090,&_zone);
+    service = new net_service(host, port, &_zone);
     int ret=service->connect();
-    //cout << "Service Connected =" << ret << endl;
-
 
     int thread_ret = pthread_create(&net_th, nullptr,net_thread, nullptr);
     if(thread_ret) {

@@ -28,7 +28,7 @@
 server::server(int port ,int _client_num,int zone_row,int zone_col) {
     //创建服务器端socket，地址族为AF_INET(IPv4)，传输方式为TCP
     server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
+    
     //初始化监听IP为本地所有IP，端口为已设置的port
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
@@ -100,7 +100,7 @@ bool server::start() { //start the server
         if(!_timer.count_down()) fetch_data();
         else send_sync_data();
 
-        printf("frame.slot[%ld,%ld]:\n",frame,++slot);
+        printf("frame.slot[%lld,%lld]:\n",frame,++slot);
         //for(int i=0;i<client_num;i++) battle_zone->snakes[i]->debug();
     }
 
@@ -138,7 +138,7 @@ void server::fetch_data() { //every time fetch data cost a frame
 
 void server::send_sync_data() {
     //process
-    printf("\nframe[%ld]\n",++frame);
+    printf("\nframe[%lld]\n",++frame);
     battle_zone->process();
     const GameProto::ServerMessage &msg = battle_zone->server_msg_proto_data();
 

@@ -36,7 +36,7 @@ struct server {
     bool active;
     long long slot,frame;
 
-    server(int,int,int, int);//room_id = port_number,client number zone size
+    server(int,int,int, int);//port(room_id) ,client_num, zone_row, zone_col
     bool start();
     void stop();
 
